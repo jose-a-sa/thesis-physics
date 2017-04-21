@@ -23,7 +23,8 @@
 %%% FONT PACKAGES
 % - fourier
 % - mathpazo ( palatino for Computer Modern on math )
-% \usepackage{mathpazo}
+\usepackage{mathpazo}
+
 
 \newcommand*{\defaultlinespacing}{\setstretch{1.3}}
 \newcommand*{\listlinespacing}{\setstretch{1.7}}
@@ -55,6 +56,12 @@
 \faculty[http://www.facultyurl.com]{Faculty} % Your faculty's name \facname \facnamenolink
 \FACULTY[http://www.facultyurl.com]{FACULTY} % Your faculty's name in capitals \FACNAME \FACNAMEnolink         
 % NOTE: To remove links write \cmd{name} instead of \cmd[link]{name}
+
+
+
+%----------------------------------------------------------------------------------------
+%	DOCUMENT
+%----------------------------------------------------------------------------------------
 
 \begin{document}
 
@@ -137,12 +144,12 @@
 
 \listoftables % Write out the List of Tables
 
+\addtocontents{toc}{\vspace{1em}}
+
 
 %----------------------------------------------------------------------------------------
 %	ABBREVIATIONS
 %----------------------------------------------------------------------------------------
-
-\addtocontents{toc}{\vspace{1em}}
 
 \listlinespacing % This makes the following tables easier to read
 
@@ -217,6 +224,7 @@ Text random and a new citation
 %----------------------------------------------------------------------------------------
 %	DEDICATORY
 %----------------------------------------------------------------------------------------
+
 \dedicatory{For/Dedicated to/To my\ldots} % Dedication text
 
 \addtocontents{toc}{\vspace{2em}} % Add a gap in the Contents, for aesthetics

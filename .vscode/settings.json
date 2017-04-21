@@ -8,6 +8,7 @@
         "Others": true,
         "**/*.lnk": true,
         "**/*.blg": true,
+        "**/*.lot": true,
         "**/*.aux": true,
         "**/*.bbl": true,
         "**/*.lof": true,
