@@ -19,6 +19,7 @@
 
 \hypersetup{colorlinks,citecolor=green,urlcolor=blue}
 
+
 %%% FONT PACKAGES
 % - fourier
 % - mathpazo ( palatino for Computer Modern on math )
@@ -29,18 +30,19 @@
 
 \usepackage{lipsum} % For dummy text
 
+
 %----------------------------------------------------------------------------------------
 %	DOCUMENT VARIABLES
 %----------------------------------------------------------------------------------------
 
 \thesistitle{Thesis Title} % Your thesis title \ttitle
 \thesistype{Masters Thesis} % Your thesis type Doctoral Thesis or Masters Thesis \ttype
-\supervisor[mailto:name@host.pt]{Jonh \textsc{Doe}} % Your supervisor's name \supname \supnamenolink
-\cosupervisor[mailto:name@host.pt]{Jonh \textsc{Doe}} % Your supervisor's name \cosupname \cosupnamenolinkTo
+\supervisor[mailto:name@host.com]{John \textsc{Doe}} % Your supervisor's name \supname \supnamenolink
+\cosupervisor[mailto:name@host.com]{John \textsc{Doe}} % Your supervisor's name \cosupname \cosupnamenolinkTo
 % To hide the Co-Supervisor field, leave it at just \cosupervisor{}
 \examiner{} % Your examiner's name \examname
 \degree{Master of Science} % Your degree name \degreename 
-\authors[mailto:jose.sa@fc.up.pt]{Jonh \textsc{Doe}} % Your name \authornames \authornamesnolink
+\authors[mailto:name@host.com]{John \textsc{Doe}} % Your name \authornames \authornamesnolink
 \addresses{} % Your address \addressname
 \subject{} % Your subject area \subjectname
 \keywords{} % Keywords for your thesis \keywordnames 
@@ -51,7 +53,7 @@
 %\group[]{} % Your research group's name \groupname \groupnamenolink            
 %\GROUP[]{} % Your research group's name in capitals \GROUPNAME \GROUPNAMEnolink   
 \faculty[http://www.facultyurl.com]{Faculty} % Your faculty's name \facname \facnamenolink
-\FACULTY[http://www.facultyurl.pt]{FACULTY} % Your faculty's name in capitals \FACNAME \FACNAMEnolink         
+\FACULTY[http://www.facultyurl.com]{FACULTY} % Your faculty's name in capitals \FACNAME \FACNAMEnolink         
 % NOTE: To remove links write \cmd{name} instead of \cmd[link]{name}
 
 \begin{document}
@@ -76,6 +78,7 @@
 {
 	Naquele tempo, depois da lição Parental, Dominum falou aos seus projectos de apóstolos das criaturas que vaguavam: ``\emph{As tipas andam de relationship em relationship. Aquilo é falta de Pai}''. Um dos apóstolos, de seu nome Pedro, perguntou-lhe ``\emph{Pai? Como assim, Pai?}'', ao que Dominum lhe respondeu: ``\emph{Pai? Pai há só um!}''. E, com isto, Dominum revelou-se aos seus projectos de apóstolos como Pai de todos, e estes prosseguiram a sua vida felizes com o que lhes foi dito.
 }
+
 
 %----------------------------------------------------------------------------------------
 %	ACKNOWLEDGEMENTS
@@ -105,6 +108,7 @@
 
 \cleardoublepage
 
+
 %----------------------------------------------------------------------------------------
 %	ABSTRACT PAGE (PORTUGUESE)
 %----------------------------------------------------------------------------------------
@@ -122,6 +126,7 @@
 
 \cleardoublepage
 
+
 %----------------------------------------------------------------------------------------
 %	LIST OF CONTENTS/FIGURES/TABLES PAGES
 %----------------------------------------------------------------------------------------
@@ -136,6 +141,7 @@
 %----------------------------------------------------------------------------------------
 %	ABBREVIATIONS
 %----------------------------------------------------------------------------------------
+
 \addtocontents{toc}{\vspace{1em}}
 
 \listlinespacing % This makes the following tables easier to read
@@ -186,6 +192,7 @@
 }
 
 \defaultlinespacing % Return the line spacing back to default
+
 
 %----------------------------------------------------------------------------------------
 %	NOTATION
@@ -249,6 +256,7 @@ Text random and a new citation
 
 \backmatter
 
+
 %----------------------------------------------------------------------------------------
 %	BIBLIOGRAPHY
 %----------------------------------------------------------------------------------------
@@ -257,7 +265,7 @@ Text random and a new citation
 
 \fancyhead[LO]{\textsc{Bibliography}}
 
-\nocite{*}
+\nocite{*} % CITE ALL REFERENCES
 
 \bibliography{Bibliography.bib} % The references (bibliography) information are stored in the file named "Bibliography.bib"
 

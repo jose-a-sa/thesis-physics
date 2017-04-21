@@ -1,0 +1,18 @@
+// Place your settings in this file to overwrite default and user settings.
+{
+    "files.exclude": {
+        "**/.git": true,
+        "**/.svn": true,
+        "**/.hg": true,
+        "**/.DS_Store": true,
+        "Others": true,
+        "**/*.lnk": true,
+        "**/*.blg": true,
+        "**/*.aux": true,
+        "**/*.bbl": true,
+        "**/*.lof": true,
+        "**/*.fls": true,
+        "**/*.toc": true,
+        "**/*.out": true
+    }
+}
