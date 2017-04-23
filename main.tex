@@ -7,6 +7,7 @@
 %----------------------------------------------------------------------------------------
 
 \documentclass[11pt, twoside]{Thesis} % The default font size and two-sided printing 
+% For a one-sided printing change the flag "twoside" to "oneside" 
 
 \graphicspath{{Pictures/}} % Specifies the directory where pictures are stored
 
@@ -40,8 +41,7 @@
 \thesistype{Masters Thesis} % Your thesis type Doctoral Thesis or Masters Thesis \ttype
 \supervisor[mailto:name@host.com]{John \textsc{Doe}} % Your supervisor's name \supname \supnamenolink
 \cosupervisor[mailto:name@host.com]{John \textsc{Doe}} % Your supervisor's name \cosupname \cosupnamenolinkTo
-% To hide the Co-Supervisor field, leave it at just \cosupervisor{}
-\examiner{} % Your examiner's name \examname
+% To hide the Co-Supervisor field, just comment out \cosupervisor
 \degree{Master of Science} % Your degree name \degreename 
 \authors[mailto:name@host.com]{John \textsc{Doe}} % Your name \authornames \authornamesnolink
 \addresses{} % Your address \addressname
@@ -50,12 +50,16 @@
 \university[http://www.univesityurl.com]{University} % Your university's name \univname \univnamenolink
 \UNIVERSITY[http://www.univesityurl.com]{UNIVERSITY} % Your university's name in capitals \UNIVNAME \UNIVNAMEnolink             
 \department[http://www.departmenturl.com]{Departament} % Your department's name \deptname \deptnamenolink
-\DEPARTMENT[http://www.departmenturl.com]{DEPARTAMENT} % Your department's name in capitals \DEPTNAME \DEPTNAMEnolink            
-%\group[]{} % Your research group's name \groupname \groupnamenolink            
-%\GROUP[]{} % Your research group's name in capitals \GROUPNAME \GROUPNAMEnolink   
+\DEPARTMENT[http://www.departmenturl.com]{DEPARTAMENT} % Your department's name in capitals \DEPTNAME \DEPTNAMEnolink
+% To hide the Department field, just comment out \DEPARTMENT and \department        
+\group[http://www.groupurl.com]{Research Group} % Your research group's name \groupname \groupnamenolink           
+\GROUP[http://www.groupurl.com]{RESEARCH GROUP} % Your research group's name in capitals \GROUPNAME \GROUPNAMEnolink
+% To hide the Group field, just comment out \GROUP and \group   
 \faculty[http://www.facultyurl.com]{Faculty} % Your faculty's name \facname \facnamenolink
-\FACULTY[http://www.facultyurl.com]{FACULTY} % Your faculty's name in capitals \FACNAME \FACNAMEnolink         
+\FACULTY[http://www.facultyurl.com]{FACULTY} % Your faculty's name in capitals \FACNAME \FACNAMEnolink
+% To hide the Faculty field, just comment out \FACULTY and \Faculty     
 % NOTE: To remove links write \cmd{name} instead of \cmd[link]{name}
+% NOTE: For aesthetics, at least one of these fields must be set: faculty, group or department
 
 
 
@@ -75,7 +79,6 @@
 %----------------------------------------------------------------------------------------
 
 \maketitle
-
 
 %----------------------------------------------------------------------------------------
 %	QUOTATION PAGE
@@ -120,7 +123,7 @@
 %	ABSTRACT PAGE (PORTUGUESE)
 %----------------------------------------------------------------------------------------
 
-\addtotoc{Resumo}
+\addtotoc{Resumo} % Add the "Resumo" page entry to the Contents
 
 \abstract[title=Resumo,degree={Mestre de Ciência},connector=por]
 {
@@ -240,14 +243,15 @@ Text random and a new citation
 
 \mainmatter % Begin numeric (1,2,3...) page numbering
 
-\pagestyle{fancy}
-\renewcommand{\chaptermark}[1]{\markboth{\thechapter. \textsc{#1}}{}}
-\fancyhead[LO]{\leftmark}
+\pagestyle{fancy} % Return to usual headers
+\renewcommand{\chaptermark}[1]{\markboth{\thechapter. \textsc{#1}}{}} % Change the format of the \leftmark to appear "number. chaper name"
+\fancyhead[LO]{\leftmark} % Make only the left odd pages header to appear the chapter name
+%This will be the default header after changing the flag "twoside" to "oneside" 
+
 
 \input{Chapters/Chapter1}
 %\input{Chapters/Chapter2} 
 %\input{Chapters/Chapter3}
-
 
 %----------------------------------------------------------------------------------------
 %	THESIS CONTENT - APPENDICES
