@@ -198,13 +198,14 @@
 
 \newcommand{\HRule}{\rule{\linewidth}{0.5mm}}
 
-\renewcommand\maketitle{
-	
 % PDF meta-data
 \hypersetup{pdftitle={\ttitle}}
 \hypersetup{pdfsubject=\subjectname}
 \hypersetup{pdfauthor=\authornames}
 \hypersetup{pdfkeywords=\keywordnames}
+
+
+\renewcommand\maketitle{
 
 % TITLE PAGE
 \thispagestyle{empty}
