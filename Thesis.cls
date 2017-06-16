@@ -2,8 +2,6 @@
 % Thesis LaTeX Template - THESIS CLASS FILE
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-
-
 \NeedsTeXFormat{LaTeX2e}[1996/12/01]
 \ProvidesClass{Thesis}
               [2007/22/02 v1.0
@@ -372,10 +370,12 @@
 \newcommand*\absEnvTitlePage{Abstract Page}
 \newcommand*\absEnvDegree{\degreename}
 \newcommand*\absEnvConnector{by}
-\define@key{absEnv}{title}{\renewcommand*\absEnvTitle{#1}} 
+\newcommand*\absEnvThesisTitle{\ttitle}
+\define@key{absEnv}{title}{\renewcommand*\absEnvTitle{#1}}
+\define@key{absEnv}{thesistitle}{\renewcommand*\absEnvThesisTitle{#1}} 
 \define@key{absEnv}{titlepage}{\renewcommand*\absEnvTitlePage{#1}}
 \define@key{absEnv}{degree}{\renewcommand*\absEnvDegree{#1}}
-\define@key{absEnv}{connector}{\renewcommand*\absEnvConnector{#1}}
+\define@key{absEnv}{nameconnector}{\renewcommand*\absEnvConnector{#1}}
 
 \newenvironment{abstract}[1][]
 {	
@@ -395,7 +395,7 @@
     \bigskip
     {\normalsize \absEnvDegree\par} % Degree name
     \bigskip
-    {\normalsize\bf \ttitle \par} % Thesis title
+    {\normalsize\bf \absEnvThesisTitle \par} % Thesis title
     \medskip
     {\normalsize \absEnvConnector\space \authornames \par} % Author name
     \bigskip
