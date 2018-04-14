@@ -1,57 +1,65 @@
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Masters/Doctoral Thesis
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%       Masters/Doctoral Thesis       %%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %-----------------------------------------------------------------------------------
 %	PACKAGES AND OTHER DOCUMENT CONFIGURATIONS
 %-----------------------------------------------------------------------------------
 
-\documentclass[10pt, twoside]{Thesis} % The default font size and two-sided printing 
+\documentclass[10pt, twoside]{Thesis}
+% The default font size and two-sided printing 
 % For a one-sided printing change the flag "twoside" to "oneside" 
 
-\usepackage{pdfpages}
-
-\graphicspath{{Pictures/}} % Specifies the directory where pictures are stored
-
-\usepackage[square, numbers, comma, sort&compress]{natbib} % Use the natbib reference package - read up on this to edit the reference style; if you want text (e.g. Smith et al., 2012) for the in-text references (instead of numbers), remove 'numbers' 
-
-%%% BIB STYLE
-%\bibliographystyle{apsrev4-1-etal} % With emphasized titles
-\bibliographystyle{apsrev4-1}
-
-
-%%% FONT PACKAGES
-% - fourier
-% - mathpazo ( palatino for Computer Modern on math )
-\usepackage{mathpazo}
-\setstretch{1.4}
-
+\graphicspath{{Pictures/},{Logos/}} % Specifies the directory where pictures are stored
 
 \usepackage{lipsum} % For dummy text
+
+
+%-----------------------------------------------------------------------------------
+% BIBLIOGRAPHY STYLE
+%-----------------------------------------------------------------------------------
+
+\usepackage[square, numbers, comma, sort&compress]{natbib}
+% \usepackage{chapterbib}
+
+%%% BST STYLES
+% \bibliographystyle{apsrev4-1}
+\bibliographystyle{apsrev4-1-etal}
+% With emphasized titles and no comma in the last author
+
+
+%-----------------------------------------------------------------------------------
+% FONTS
+%-----------------------------------------------------------------------------------
+
+\usepackage{mathpazo}% (default) 
+% \usepackage{fourier}
+% \usepackage{palatino}% ( mathpazo on text + Computer Modern on math )
 
 
 %-----------------------------------------------------------------------------------
 %	DOCUMENT VARIABLES
 %-----------------------------------------------------------------------------------
 
-\thesistitle[Small title]{Very long long long long long long long long long long long long long long long a and complete title}
+\thesistitle[Header title]{Very long long long long long long long long%
+ long long long long long long long a and complete title} % Thesis title
 \author[mailto:name@host.com]{John \textsc{Doe}} % Your name
 % \address{} % Your address
 % \subject{} % Your subject area
 % \keywords{} % Keywords for your thesis 
 \supervisor[mailto:name@host.com]{John \textsc{Doe}} % Your supervisor's name
 \cosupervisor[mailto:name@host.com]{John \textsc{Doe}} % Your co-supervisor's name
-% To hide the co-supervisor field, just comment out \cosupervisor
+% To hide the co-supervisor field, just comment out \cosupervisor[<url>]{<name>}  
 \degree[Master's]{MSc}{Master of Science} % Your degree name
 \university[http://www.univesityurl.com]{University} % Your university's name
 \department[http://www.departmenturl.com]{Departament} % Your department's name 
-% To hide the Department field, just comment out \department        
+% To hide the Department field, just comment out \department[<url>]{<name>}         
 \group[http://www.groupurl.com]{Research Group} % Your research group's name
-% To hide the Group field, just comment out \group   
-\faculty[http://www.facultyurl.com]{Faculty} % Your faculty's name \facname
-% To hide the Faculty field, just comment out faculty     
-% To remove links write \cmd{name} instead of \cmd[link]{name}
-% For aesthetics, at least one of these fields must be set: faculty, group or department
+% To hide the Group field, just comment out \group[<url>]{<name>}    
+\faculty[http://www.facultyurl.com]{Faculty} % Your faculty's name
+% To hide the Faculty field, just comment out \faculty[<url>]{<name>}  
+\logos[20mm]{{Logos/ua},{ua},{ua}}
+% To hide the logos, just comment out \logos{<relative location>}  
 
 
 %-----------------------------------------------------------------------------------
@@ -63,15 +71,16 @@
 \newcommand{\fracpd}[2][]{\frac{\partial #1}{\partial #2}}
 
 
+
 %-----------------------------------------------------------------------------------
 %	DOCUMENT
 %-----------------------------------------------------------------------------------
 
 \begin{document}
 
-\frontmatter % Use roman page numbering style (i, ii, iii, iv...) for the pre-content pages
+\frontmatter % Use roman page numbering style for the pre-content pages
 
-\maketitle
+\maketitle % Make title page
 
 
 %-----------------------------------------------------------------------------------
@@ -125,6 +134,7 @@
 
 \addvspacetoc{3mm} % Add a gap in the Contents, for aesthetics
 
+
 %-----------------------------------------------------------------------------------
 %	PHYSICAL CONSTANTS/OTHER DEFINITIONS
 %-----------------------------------------------------------------------------------
@@ -152,12 +162,11 @@
 %	NOTATION
 %-----------------------------------------------------------------------------------
 
-% \newcommand\notationname{Notation and Conventions}
-% \addtotoc{\notationname}
-% \fancyhead[LO]{\textsc{\notationname}}
+\begin{frontchapter}{Notation and Conventions}
+	Write if like a chapter.
 
-% \input{Notation}
-
+	\lipsum[25-30]
+\end{frontchapter}
 
 
 %-----------------------------------------------------------------------------------
@@ -169,6 +178,9 @@
 	\abbrev{LCAO}{\b Linear \b combination of \b atomic \b orbitals}
 	\abbrev{GR}{\b General \b Relativity}
 \end{glossary}
+%%% NOTE
+% "\b Word" is equivalent to "\textbf{W}ord"
+% "\b{Word}" is equivalent to "\textbf{Word}"
 
 
 %-----------------------------------------------------------------------------------
@@ -181,48 +193,64 @@
 
 
 %-----------------------------------------------------------------------------------
-%	THESIS CONTENT - CHAPTERS
+%	THESIS CONTENT - PARTS/CHAPTERS/APPENDICES
 %-----------------------------------------------------------------------------------
 
 \addvspacetoc{3mm} % Add a gap in the Contents, for aesthetics
 
 \mainmatter % Begin numeric (1,2,3...) page numbering
 
-% \pagestyle{fancy}
-% \renewcommand{\chaptermark}[1]{\markboth{\thechapter. \textsc{#1}}{}}
-% \fancyhead[LO]{\leftmark}
+% \resetpartcounters % After each \part all chapters, etc. start from 0
+
+
+%%% PART I %%%
+\part{First project}
 
 \input{Chapters/Chapter1}
-\input{Chapters/Chapter2} 
-%\input{Chapters/Chapter3}
-%\input{Chapters/Chapter4} 
-%\input{Chapters/Chapter5} 
+% \input{Folder/Filename}
+
+\begin{appendices}
+	\input{Appendices/AppendixA}
+	% \input{Folder/Filename}
+\end{appendices}
 
 
+%%% PART II %%%
+\part{Second project}
 
-%-----------------------------------------------------------------------------------
-%	THESIS CONTENT - APPENDICES
-%-----------------------------------------------------------------------------------
+\input{Chapters/Chapter2}
+% \input{Folder/Filename}
 
-\appendix % Cue to tell LaTeX that the following 'chapters' are Appendices
+\begin{appendices}
+	\input{Appendices/AppendixB}
+	% \input{Folder/Filename}
+\end{appendices}
 
-\input{Appendices/AppendixA}
-%\input{Appendices/AppendixB}
-%\input{Appendices/AppendixC}
 
-\backmatter
+% Another approach to appendices, all appendices as chapters the final thesis part
+%%% APPENDICES %%%
+% \appendixpage
+% \appendix
+
+% \input{Appendices/AppendixA}
+% \input{Appendices/AppendixB}
+% % \input{Folder/Filename}
+
 
 %-----------------------------------------------------------------------------------
 %	BIBLIOGRAPHY
 %-----------------------------------------------------------------------------------
 
-\addvspacetoc{5mm}
-\addtotoc{Bibliography}
+\backmatter % End frontmatter
 
-\fancyhead[LO]{\textsc{Bibliography}}
+\addvspacetoc{5mm} % Add a gap in the Contents, for aesthetics
+
+\startbibliography[part]{Bibliography} % configures TOC entries and headers
+% \startbibliography[chapter|part]{<name of bib chapter>} 
 
 \nocite{*}
-\bibliography{Bibliography.bib} % The references are stored in the file "Bibliography.bib"
+\bibliography{Bibliography} 
+% The references are stored in the file "Bibliography.bib"
 
 
 \end{document}

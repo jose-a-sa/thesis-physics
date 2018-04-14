@@ -1551,7 +1551,7 @@ FUNCTION {format.names}
     'namesleft :=
     's :=
     #1 'nameptr :=
-    ""
+    " "
       { namesleft #0 > }
       {
       format.names.morfont
@@ -1585,10 +1585,6 @@ FUNCTION {format.names}
                 s nameptr "{ll}" format.name$ duplicate$ "others" =
                   { 't := }
                   { pop$ }
-                if$
-                numnames #2 >
-                  'names.punctuate
-                  'skip$
                 if$
                 t "others" =
                   {

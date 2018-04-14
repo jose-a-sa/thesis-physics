@@ -3,7 +3,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \NeedsTeXFormat{LaTeX2e}[1996/12/01]
-\ProvidesClass{Thesis}[2017/04/15 v1.1 LaTeX document class]
+\ProvidesClass{Thesis}[2018/04/14 v2.0 Thesis]
 \def\baseclass{book}
 \DeclareOption*{\PassOptionsToClass{\CurrentOption}{\baseclass}}
 \def\@checkoptions#1#2{
@@ -20,36 +20,11 @@
 \ProcessOptions\relax
 \LoadClass{\baseclass}
 
-\newcommand\bhrule{\typeout{------------------------------------------------------------------------------}}
-
-%\newcommand\Declaration[1]{
-%\btypeout{Declaration of Authorship}
-%\addtotoc{Declaration of Authorship}
-%\thispagestyle{plain}
-%\null\vfil
-%%\vskip 60\p@
-%\begin{center}{\huge\bf Declaration of Authorship\par}\end{center}
-%%\vskip 60\p@
-%{\normalsize #1}
-%\vfil\vfil\null
-%%\cleardoublepage
-%}
 
 
-
-\newcommand\btypeout[1]{\bhrule\typeout{\space #1}\bhrule}
-
-\def\today{\ifcase\month\or
-  January\or February\or March\or April\or May\or June\or
-  July\or August\or September\or October\or November\or December\fi
-  \space \number\year
-} % \today of the form "Month Year"
-
-
-
-%-----------------------------------------------------------------------------------
+%---------------------------------------------------------------------------------
 %	EXTRA PACKAGES
-%-----------------------------------------------------------------------------------
+%---------------------------------------------------------------------------------
 
 % Needed to use a toolbox of programming tools
 \RequirePackage{etoolbox}
@@ -61,10 +36,14 @@
 \RequirePackage{ragged2e}
 % Needed to configure page layout
 \RequirePackage{geometry}
+% Best table environment for latex
+\RequirePackage{tabu}
 % Needed to make header & footer effeciently
 \RequirePackage{fancyhdr, lastpage}
 % Needed to manage colors
 \RequirePackage{xcolor}
+% Needed to manage fraction
+\RequirePackage{xfrac}
 % Needed to use \ifxetex-\else-\fi statement
 \RequirePackage{ifxetex}
 % Needed to use \if-\then-\else statement
@@ -72,7 +51,9 @@
 % Needed to configurate the line spacing
 \RequirePackage{setspace}
 % Extra math symbols and commands
-\RequirePackage{amsmath,amsfonts,amssymb,amscd,amsbsy,amsthm,mathtools}
+\RequirePackage{amsmath,amsfonts,amssymb,amscd,amsbsy,amsthm,mathtools,textcomp}
+% More math symbols and commands
+\RequirePackage{mathtools,textcomp,stackrel}
 % Command for better spaces and arrows
 \RequirePackage{xspace}
 % Needed to configure captions
@@ -85,12 +66,34 @@
 \RequirePackage{hyperref}
 % Needed for better references
 \RequirePackage[capitalize,noabbrev]{cleveref}
+% Needed to include other pdf pages
+\RequirePackage{pdfpages}
+% Needed to add appendices separatly to each \part
+\RequirePackage{appendix}
+% Needed to \reset counters in each \part
+\RequirePackage{chngcntr}
+% Needed for figures
+\RequirePackage{subcaption, float}
+% Needed to draw figures
+\RequirePackage{tikz}
 
 
 
-%-----------------------------------------------------------------------------------
+%---------------------------------------------------------------------------------
+%	CONFIGURE TODAY
+%---------------------------------------------------------------------------------
+
+\def\today{\ifcase\month\or
+  January\or February\or March\or April\or May\or June\or
+  July\or August\or September\or October\or November\or December\fi
+  \space \number\year
+} % \today of the form "Month Year"
+
+
+
+%---------------------------------------------------------------------------------
 %	HYPERLINKS & REFERENCES
-%-----------------------------------------------------------------------------------
+%---------------------------------------------------------------------------------
 
 \hypersetup{pdfpagemode={UseOutlines},bookmarks=true,bookmarksopen=true,
    bookmarksopenlevel=0,bookmarksnumbered=true,hypertexnames=false,
@@ -101,9 +104,9 @@
 
 
 
-%-----------------------------------------------------------------------------------
-%	MARGINS & GEOMETRY
-%-----------------------------------------------------------------------------------
+%---------------------------------------------------------------------------------
+%	MARGINS & GEOMETRY & PARAGRAPHS
+%---------------------------------------------------------------------------------
 
 \geometry{a4paper,
   bindingoffset=8mm,
@@ -113,7 +116,8 @@
   bottom=27mm,
   footskip=10mm
 }
-                    
+
+
 \raggedbottom
 \setlength{\topskip}{1.1\topskip \@plus 5\p@}
 \doublehyphendemerits=10000       % No consecutive line hyphens.
@@ -123,10 +127,15 @@
 \interfootnotelinepenalty=9999    % Almost never break footnotes.
 
 
+\setstretch{1.4}
+\setlength\parindent{0pt}
+\setlength\parskip{5pt plus 1pt minus 1pt}
 
-%-----------------------------------------------------------------------------------
+
+
+%---------------------------------------------------------------------------------
 %	HEADER STYLE
-%-----------------------------------------------------------------------------------
+%---------------------------------------------------------------------------------
 
 \pagestyle{fancy}
 \fancyheadoffset[L]{0pt}
@@ -134,35 +143,84 @@
 \fancyfoot{}
 
 
-%-----------------------------------------------------------------------------------
-%	UTILITIES
-%-----------------------------------------------------------------------------------
 
+%---------------------------------------------------------------------------------
+%	UTILITIES
+%---------------------------------------------------------------------------------
+
+% Needed to help debuging problems in the compiler
+\newcommand\bhrule{\typeout{------------------------------------------------------------------------------}}
+\newcommand\btypeout[1]{\bhrule\typeout{\space #1}\bhrule}
+
+% Needed to add clear page for book type layout
 \def\cleardoublepage{\clearpage\if@twoside \ifodd\c@page\else
 \hbox{}
 \thispagestyle{empty}
 \newpage
 \if@twocolumn\hbox{}\newpage\fi\fi\fi}
 
+% Needed to make horizontal rule
 \newcommand{\HRule}{\rule{\linewidth}{0.5mm}}
 
+% Needed to add asthetic spacing to TOC
 \newcommand\addvspacetoc[1]{\addtocontents{toc}{\vspace{#1}}}
 
+% Needed to bold the first letter in the next sentence
 \def\b#1{\textbf{#1}}
 
-%-----------------------------------------------------------------------------------
-%	PARAGRAPHS
-%-----------------------------------------------------------------------------------
+% To reset chapter counter for every part
+\def\resetpartcounters{%
+	\counterwithin*{chapter}{part}
+	\counterwithin{figure}{part}
+	\counterwithin{equation}{part}
+	\counterwithin{table}{part}
+	\renewcommand*{\restoreapp}{}
+}%
 
-\setstretch{1.3}
-\setlength\parindent{0pt}
-\setlength\parskip{5pt plus 1pt minus 1pt}
+% To remove page number from \part
+\newcommand\startbibliography[2][chapter]{%
+  \phantomsection
+  \setcounter{part}{0}
+  \addcontentsline{toc}{#1}{#2}
+  \fancyhead[LO]{\textsc{#2}}
+  \renewcommand\bibname{#2}
+}%
+
+% To remove page number from \appendixpage
+\let\appendixpageold\appendixpage
+\renewcommand{\appendixpage}{%
+  \begingroup
+  \let\ps@plain\ps@empty
+  \phantomsection
+  \addcontentsline{toc}{part}{Appendices}
+  \appendixpageold
+  \endgroup
+  \cleardoublepage
+}%
+
+% To remove page number from \part
+\renewcommand\part{%
+   \if@openright
+     \cleardoublepage
+   \else
+     \clearpage
+   \fi
+   \thispagestyle{empty}%
+   \if@twocolumn
+     \onecolumn
+     \@tempswatrue
+   \else
+     \@tempswafalse
+   \fi
+   \null\vfil
+   \secdef\@part\@spart
+}%
 
 
 
-%-----------------------------------------------------------------------------------
+%---------------------------------------------------------------------------------
 %	MATH RELATED
-%-----------------------------------------------------------------------------------
+%---------------------------------------------------------------------------------
 
 \theoremstyle{plain}
 \newtheorem{example}{Example}[chapter]
@@ -178,9 +236,12 @@
 
 
 
-%-----------------------------------------------------------------------------------
-%	FRACTIONS & FIGURES
-%-----------------------------------------------------------------------------------
+%---------------------------------------------------------------------------------
+%	COUNTERS & RATIOS & LENGHTS
+%---------------------------------------------------------------------------------
+
+\newlength\@logoheight
+\setlength\@logoheight{30mm}
 
 \setlength{\captionmargin}{20pt}
 
@@ -196,19 +257,22 @@
 \setcounter{totalnumber}{20}
 \setcounter{dbltopnumber}{9}
 
+\addtocounter{secnumdepth}{1}
+\setcounter{tocdepth}{6}
 
 
-%-----------------------------------------------------------------------------------
+
+%---------------------------------------------------------------------------------
 %	REFERENCES
-%-----------------------------------------------------------------------------------
+%---------------------------------------------------------------------------------
 
 \renewcommand*{\eqref}[1]{(\ref{#1})}
 
 
 
-%-----------------------------------------------------------------------------------
+%---------------------------------------------------------------------------------
 %	THESIS RELATED COMMANDS
-%-----------------------------------------------------------------------------------
+%---------------------------------------------------------------------------------
 
 \newcommand*{\supervisor}[2][]{\def\@supervisor{\texorpdfstring{\href{#1}{#2}}{#2}}}
 \newcommand*{\cosupervisor}[2][]{\def\@cosupervisor{\texorpdfstring{\href{#1}{#2}}{#2}}}
@@ -241,12 +305,16 @@
   \def\@keywords{#1}
   \hypersetup{pdfkeywords={#1}}
 }%
+\newcommand*{\logos}[2][30mm]{%
+  \setlength\@logoheight{#1}
+  \def\@logos{#2}
+}%
 
 
 
-%-----------------------------------------------------------------------------------
+%---------------------------------------------------------------------------------
 %	FRONT/MAIN/BACK MATTER
-%-----------------------------------------------------------------------------------
+%---------------------------------------------------------------------------------
 
 \renewcommand\mainmatter{%
   \if@openright
@@ -272,54 +340,64 @@
 
 
 
-%-----------------------------------------------------------------------------------
+%---------------------------------------------------------------------------------
 %	TITLE PAGE DESIGN
-%-----------------------------------------------------------------------------------
+%---------------------------------------------------------------------------------
 
 \renewcommand\maketitle{% TITLE PAGE
+  \btypeout{Title page}
   \thispagestyle{empty}%
   \begin{titlepage}%
+    \topskip=0pt
     \begin{center}%
       \textsc{\LARGE\@university}%
       \\[15mm]
       \textsc{\Large\ifdefined\@degreeother\@degreeother\else\@degree\fi\space Thesis}%
-      \\[5mm]
+      \\[2mm]
       
       \HRule\\[4mm]% Horizontal line
-      \begin{minipage}{0.90\textwidth}
+      \begin{minipage}{0.90\textwidth}%
         \setstretch{1.1}\centering\huge\bfseries\@thesistitle
       \end{minipage}% Thesis title
       \\[5.5mm]
-      \HRule\\[12mm]% Horizontal line
+      \HRule\\[8mm]% Horizontal line
       
-      \begin{minipage}[t]{0.4\textwidth}
-        \begin{flushleft}
+      \begin{minipage}[t]{0.4\textwidth}%
+        \begin{flushleft}%
           \large\emph{Author:}\\\@author
-        \end{flushleft}
-      \end{minipage}
-      \begin{minipage}[t]{0.4\textwidth}
-        \begin{flushright}
-          \large\emph{Supervisor:}\\\@supervisor 
-          \ifdefined\@cosupervisornolink 
-            \\[4mm]
-            \emph{Co-supervisor:}\\\@cosupervisor 
+        \end{flushleft}%
+      \end{minipage}%
+      \begin{minipage}[t]{0.4\textwidth}%
+        \begin{flushright}%
+          \large\emph{Supervisor:}\\%
+          \@supervisor
+          \ifdefined\@cosupervisor 
+            \\[4mm]%
+            \emph{Co-supervisor:}\\%
+            \@cosupervisor
           \fi
-        \end{flushright}
-      \end{minipage}
-      \\[25mm]
+        \end{flushright}%
+      \end{minipage}%
+      \\[15mm]
       
-      \large\textit{A thesis submitted in fulfilment of the requirements\\%
-      for the degree of \@degree}
-      \\[3mm]
+      \large\textit{A thesis submitted in fulfilment of the requirements\linebreak%
+      for the degree of \@degree}%
+      \\[2mm]
       \textit{at the}%
-      \\[4mm]
+      \\[3mm]
       \ifdefined\@faculty\@faculty\\\fi
       \ifdefined\@department\@department\\\fi
       \ifdefined\@group\@group\\\fi
-      \bigskip\bigskip\bigskip
-      {\large \today}\\[4cm]% Date
-      %\includegraphics{Logo} % University/department logo - uncomment to place it
-      \vfill
+      \bigskip\bigskip
+      {\large \today}\\% Date
+      \vfill\vfill
+      \ifdefined\@logos
+        \hspace*{\fill}
+        \foreach\lg in \@logos{%
+          \includegraphics[height=\@logoheight]{\lg} % University/department logo
+          \hspace*{\fill}
+        }%
+      \fi
     \end{center}%
   \end{titlepage}%
   \cleardoublepage
@@ -327,9 +405,9 @@
 
 
 
-%-----------------------------------------------------------------------------------
+%---------------------------------------------------------------------------------
 %	ABSTRACT PAGE DESIGN
-%-----------------------------------------------------------------------------------
+%---------------------------------------------------------------------------------
 
 \def\@abstitle{Abstract}
 \def\@absdegree{\@degree}
@@ -343,6 +421,7 @@
 \newenvironment{abstract}[1][]
 {%
   \setkeys{absenv}{#1}%
+  \btypeout{\@abstitle}%
   \addtotoc{\@abstitle}%
   \thispagestyle{plain}%
   \fancyhead[LO]{\textsc{\@abstitle}}%
@@ -372,12 +451,11 @@
 
 
 
-%-----------------------------------------------------------------------------------
+%---------------------------------------------------------------------------------
 %	TABLE OF CONTENTS PAGE DESIGN
-%-----------------------------------------------------------------------------------
+%---------------------------------------------------------------------------------
 
-\addtocounter{secnumdepth}{1}
-\setcounter{tocdepth}{6}
+
 \newcounter{dummy}
 \newcommand\addtotoc[1]{
 \refstepcounter{dummy}
@@ -407,9 +485,9 @@
 
 
 
-%-----------------------------------------------------------------------------------
+%---------------------------------------------------------------------------------
 %	LIST OF FIGURES PAGE DESIGN
-%-----------------------------------------------------------------------------------
+%---------------------------------------------------------------------------------
 
 \usepackage[titles]{tocloft}
 \renewcommand\cftfigafterpnum{\vskip8pt\par}
@@ -437,9 +515,9 @@
 
 
 
-%-----------------------------------------------------------------------------------
+%---------------------------------------------------------------------------------
 %	LIST OF TABLES PAGE DESIGN
-%-----------------------------------------------------------------------------------
+%---------------------------------------------------------------------------------
 
 \renewcommand\cfttabafterpnum{\vskip8pt\par}
 
@@ -466,9 +544,9 @@
 
 
 
-%-----------------------------------------------------------------------------------
+%---------------------------------------------------------------------------------
 %	LIST OF ABBREVIATIONS PAGE DESIGN
-%-----------------------------------------------------------------------------------
+%---------------------------------------------------------------------------------
 
 \usepackage{longtable}
 
@@ -494,9 +572,9 @@
   \vspace{1.5mm}\textbf{#1}	& #2 \\
 }
 
-%-----------------------------------------------------------------------------------
+%---------------------------------------------------------------------------------
 %	PHYSICAL CONSTANTS PAGE DESIGN
-%-----------------------------------------------------------------------------------
+%---------------------------------------------------------------------------------
 
 \newcommand\listconstantsname{Physical Constants}
 
@@ -522,9 +600,9 @@
 
 
 
-%-----------------------------------------------------------------------------------
+%---------------------------------------------------------------------------------
 %	SYMBOLS PAGE DESIGN
-%-----------------------------------------------------------------------------------
+%---------------------------------------------------------------------------------
 
 \newcommand\listsymbolsname{Symbols}
 
@@ -550,9 +628,9 @@
 
 
 
-%-----------------------------------------------------------------------------------
+%---------------------------------------------------------------------------------
 %	QUOTATION PAGE DESIGN
-%-----------------------------------------------------------------------------------
+%---------------------------------------------------------------------------------
 
 \newcommand\quotepage[2]{
   \thispagestyle{empty} % Remove page number
@@ -565,9 +643,9 @@
 
 
 
-%-----------------------------------------------------------------------------------
+%---------------------------------------------------------------------------------
 %	ACKNOWLEDGEMENTS PAGE DESIGN
-%-----------------------------------------------------------------------------------
+%---------------------------------------------------------------------------------
 
 \newenvironment{acknowledgements}
 {
@@ -585,10 +663,27 @@
 }
 
 
-
-%-----------------------------------------------------------------------------------
+%---------------------------------------------------------------------------------
 %	DEDICATORY PAGE DESIGN
-%-----------------------------------------------------------------------------------
+%---------------------------------------------------------------------------------
+
+\newenvironment{frontchapter}[1]
+{
+  \btypeout{Dedicatory}
+  \addtotoc{#1}
+  \fancyhead[LO]{\textsc{#1}}
+  \chapter*{#1}
+}
+{
+  \vfil\null
+  \cleardoublepage
+}
+
+
+
+%---------------------------------------------------------------------------------
+%	DEDICATORY PAGE DESIGN
+%---------------------------------------------------------------------------------
 
 \newenvironment{dedicatory}
 {
@@ -603,6 +698,25 @@
   \end{center}
   \vfil\null
   \cleardoublepage
+}
+
+
+
+%---------------------------------------------------------------------------------
+%	DEDICATORY PAGE DESIGN
+%---------------------------------------------------------------------------------
+
+\newcommand\declaration[1]{
+  \btypeout{Declaration of Authorship}
+  \addtotoc{Declaration of Authorship}
+  \thispagestyle{plain}
+  \null\vfil
+  %\vskip 60\p@
+  \begin{center}{\huge\bfseries Declaration of Authorship\par}\end{center}
+  %\vskip 60\p@
+  {\normalsize #1}
+  \vfil\vfil\null
+  %\cleardoublepage
 }
 
 
