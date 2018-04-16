@@ -114,7 +114,8 @@
 	outer=23mm,
 	inner=23mm,
   bottom=27mm,
-  footskip=10mm
+  footskip=10mm,
+  footnotesep=5mm plus 1mm minus 1mm
 }
 
 
