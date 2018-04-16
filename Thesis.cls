@@ -178,7 +178,7 @@
 }%
 
 % To remove page number from \part
-\newcommand\startbibliography[2][chapter]{%
+\newcommand\configbibliography[2][chapter]{%
   \phantomsection
   \setcounter{part}{0}
   \addcontentsline{toc}{#1}{#2}
