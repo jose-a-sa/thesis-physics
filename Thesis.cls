@@ -76,7 +76,10 @@
 \RequirePackage{subcaption, float}
 % Needed to draw figures
 \RequirePackage{tikz}
-
+% Needed to construct list of symbols, constants and abbreviations
+\usepackage{longtable}
+% Needed to list of tables, figures and 
+\usepackage[titles]{tocloft}
 
 
 %---------------------------------------------------------------------------------
@@ -162,6 +165,13 @@
 
 % Needed to make horizontal rule
 \newcommand{\HRule}{\rule{\linewidth}{0.5mm}}
+
+% Needed to add content to TOC
+\newcounter{dummy}
+\newcommand\addtotoc[1]{%
+  \refstepcounter{dummy}%
+  \addcontentsline{toc}{chapter}{#1}%
+}
 
 % Needed to add asthetic spacing to TOC
 \newcommand\addvspacetoc[1]{\addtocontents{toc}{\vspace{#1}}}
@@ -395,8 +405,8 @@
       \ifdefined\@logos
         \hspace*{\fill}
         \foreach\lg in \@logos{%
-          \includegraphics[height=\@logoheight]{\lg} % University/department logo
-          \hspace*{\fill}
+          \includegraphics[height=\@logoheight]{\lg}% University/department logo
+          \hspace*{\fill}%
         }%
       \fi
     \end{center}%
@@ -456,33 +466,24 @@
 %	TABLE OF CONTENTS PAGE DESIGN
 %---------------------------------------------------------------------------------
 
-
-\newcounter{dummy}
-\newcommand\addtotoc[1]{
-\refstepcounter{dummy}
-\addcontentsline{toc}{chapter}{#1}}
-
-
-\renewcommand\tableofcontents{
-\btypeout{\contentsname}
-\addtotoc{\contentsname}
-
-\fancyhead[LO]{\textsc{\contentsname}}
-
-\begin{spacing}{1}{
-    \setlength{\parskip}{1pt}
-    \if@twocolumn
-      \@restonecoltrue\onecolumn
-    \else
-      \@restonecolfalse
-    \fi
-    \chapter*{\contentsname
-        \@mkboth{\MakeUppercase\contentsname}{\MakeUppercase\contentsname}}
-    \@starttoc{toc}
-    \if@restonecol\twocolumn\fi
-}\end{spacing}
-\cleardoublepage
-}
+\renewcommand\tableofcontents{%
+  \btypeout{\contentsname}
+  \addtotoc{\contentsname}
+  \fancyhead[LO]{\textsc{\contentsname}}
+  \begin{spacing}{1}{%
+      \setlength{\parskip}{1pt}
+      \if@twocolumn
+        \@restonecoltrue\onecolumn
+      \else
+        \@restonecolfalse
+      \fi
+      \chapter*{\contentsname
+          \@mkboth{\MakeUppercase\contentsname}{\MakeUppercase\contentsname}}
+      \@starttoc{toc}
+      \if@restonecol\twocolumn\fi
+  }\end{spacing}%
+  \cleardoublepage
+}%
 
 
 
@@ -490,29 +491,26 @@
 %	LIST OF FIGURES PAGE DESIGN
 %---------------------------------------------------------------------------------
 
-\usepackage[titles]{tocloft}
 \renewcommand\cftfigafterpnum{\vskip8pt\par}
 
-\renewcommand\listoffigures{
-\btypeout{\listfigurename}
-\addtotoc{\listfigurename}
-
-\fancyhead[LO]{\textsc{\listfigurename}}
-
-\begin{spacing}{1}{
-    \setlength{\parskip}{1pt}
-    \if@twocolumn
-      \@restonecoltrue\onecolumn
-    \else
-      \@restonecolfalse
-    \fi
-    \chapter*{\listfigurename
-      \@mkboth{\MakeUppercase\listfigurename}{\MakeUppercase\listfigurename}}
-    \@starttoc{lof}
-    \if@restonecol\twocolumn\fi
-}\end{spacing}
-\cleardoublepage
-}
+\renewcommand\listoffigures{%
+  \btypeout{\listfigurename}
+  \addtotoc{\listfigurename}
+  \fancyhead[LO]{\textsc{\listfigurename}}
+  \begin{spacing}{1}{%
+      \setlength{\parskip}{1pt}
+      \if@twocolumn
+        \@restonecoltrue\onecolumn
+      \else
+        \@restonecolfalse
+      \fi
+      \chapter*{\listfigurename
+        \@mkboth{\MakeUppercase\listfigurename}{\MakeUppercase\listfigurename}}
+      \@starttoc{lof}
+      \if@restonecol\twocolumn\fi
+  }\end{spacing}
+  \cleardoublepage
+}%
 
 
 
@@ -522,26 +520,24 @@
 
 \renewcommand\cfttabafterpnum{\vskip8pt\par}
 
-\renewcommand\listoftables{
-\btypeout{\listtablename}
-\addtotoc{\listtablename}
-
-\fancyhead[LO]{\textsc{\listtablename}}
-
-\begin{spacing}{1}{
-    \setlength{\parskip}{1pt}
-    \if@twocolumn
-      \@restonecoltrue\onecolumn
-    \else
-      \@restonecolfalse
-    \fi
-    \chapter*{\listtablename
-      \@mkboth{\MakeUppercase\listtablename}{\MakeUppercase\listtablename}}
-    \@starttoc{lot}
-    \if@restonecol\twocolumn\fi
-}\end{spacing}
-\cleardoublepage
-}
+\renewcommand\listoftables{%
+  \btypeout{\listtablename}
+  \addtotoc{\listtablename}
+  \fancyhead[LO]{\textsc{\listtablename}}
+  \begin{spacing}{1}{%
+      \setlength{\parskip}{1pt}
+      \if@twocolumn
+        \@restonecoltrue\onecolumn
+      \else
+        \@restonecolfalse
+      \fi
+      \chapter*{\listtablename
+        \@mkboth{\MakeUppercase\listtablename}{\MakeUppercase\listtablename}}
+      \@starttoc{lot}
+      \if@restonecol\twocolumn\fi
+  }\end{spacing}%
+  \cleardoublepage
+}%
 
 
 
@@ -549,12 +545,10 @@
 %	LIST OF ABBREVIATIONS PAGE DESIGN
 %---------------------------------------------------------------------------------
 
-\usepackage{longtable}
-
 \newcommand\glossaryname{Abbreviations}
 
 \renewenvironment{glossary}
-{	
+{%
   \btypeout{\glossaryname}
   \addtotoc{\glossaryname}
   \fancyhead[LO]{\textsc{\glossaryname}}
@@ -562,16 +556,15 @@
       \@mkboth{\MakeUppercase\glossaryname}{\MakeUppercase\glossaryname}}
   \setlength{\tabcolsep}{1mm}
 	\begin{longtable}[c]{r@{\hskip9mm}l}
-}
-{
+}{%
     \hspace*{24mm} & \hspace*{13cm}
   \end{longtable}\par
   \cleardoublepage
-}
+}%
 
-\newcommand\abbrev[2]{
+\newcommand\abbrev[2]{%
   \vspace{1.5mm}\textbf{#1}	& #2 \\
-}
+}%
 
 %---------------------------------------------------------------------------------
 %	PHYSICAL CONSTANTS PAGE DESIGN
@@ -580,7 +573,7 @@
 \newcommand\listconstantsname{Physical Constants}
 
 \newenvironment{listofcontants}
-{	
+{%
   \btypeout{\listconstantsname}
   \addtotoc{\listconstantsname}
   \fancyhead[LO]{\textsc{\listconstantsname}}
@@ -588,16 +581,15 @@
       \@mkboth{\MakeUppercase\listconstantsname}{\MakeUppercase\listconstantsname}}
   \setlength{\tabcolsep}{0.1cm}
 	\begin{longtable}[c]{llcl} 
-}
-{
+}{%
     \const[\phantom{$=$}]{}{\phantom{$mm/mm$}}{}
   \end{longtable}\par
   \cleardoublepage
-}
+}%
 
-\newcommand\const[4][$=$]{
+\newcommand\const[4][$=$]{%
   	\vspace{0.15cm}\hspace{0.4cm}\parbox{7cm}{\vspace{0.15cm}\setstretch{1} #2}\hspace{0.8cm} & #3 & #1 & \parbox{6cm}{\setstretch{1} #4} \\
-}
+}%
 
 
 
@@ -608,7 +600,7 @@
 \newcommand\listsymbolsname{Symbols}
 
 \newenvironment{listofsymbols}
-{	
+{%
   \btypeout{\listsymbolsname}
   \addtotoc{\listsymbolsname}
   \fancyhead[LO]{\textsc{\listsymbolsname}}
@@ -616,16 +608,15 @@
       \@mkboth{\MakeUppercase\listsymbolsname}{\MakeUppercase\listsymbolsname}}
   \setlength{\tabcolsep}{0.1cm}
 	\begin{longtable}[c]{l@{\hskip 2cm}l@{\hskip 2cm}l} 
-}
-{
+}{%
     \symb{\phantom{$d$}}{\phantom{distance}}{\phantom{m}}
   \end{longtable}\par
   \cleardoublepage
-}
+}%
 
-\newcommand\symb[3]{
+\newcommand\symb[3]{%
   	\vspace{0.15cm}#1 & #2 & #3 \\
-}
+}%
 
 
 
@@ -633,14 +624,15 @@
 %	QUOTATION PAGE DESIGN
 %---------------------------------------------------------------------------------
 
-\newcommand\quotepage[2]{
+\newcommand\quotepage[2]{%
+  \btypeout{Quote page}
   \thispagestyle{empty} % Remove page number
   \null\vfill % Add some space to move the quote down the page a bit
   \textit{``#2"}
   \begin{flushright}#1\end{flushright}
   \vfill\vfill\vfill\vfill\vfill\vfill\null % Add some space at the bottom to position the quote just right
   \cleardoublepage % Start a new page
-}
+}%
 
 
 
@@ -649,19 +641,18 @@
 %---------------------------------------------------------------------------------
 
 \newenvironment{acknowledgements}
-{
+{%
   \btypeout{Acknowledgements}
   \addtotoc{Acknowledgements}
   \pagestyle{empty}
-  \begin{center}{\huge{\textit{Acknowledgements}} \par}\end{center}
+  \begin{center}{\huge{\textit{Acknowledgements}}\par}\end{center}
   \vspace{3mm}
   \normalsize\normalfont
-}
-{
+}{%
   \vfil\vfil\null
   \cleardoublepage
   \pagestyle{fancy}
-}
+}%
 
 
 %---------------------------------------------------------------------------------
@@ -669,16 +660,15 @@
 %---------------------------------------------------------------------------------
 
 \newenvironment{frontchapter}[1]
-{
+{%
   \btypeout{Dedicatory}
   \addtotoc{#1}
   \fancyhead[LO]{\textsc{#1}}
   \chapter*{#1}
-}
-{
+}{%
   \vfil\null
   \cleardoublepage
-}
+}%
 
 
 
@@ -687,19 +677,18 @@
 %---------------------------------------------------------------------------------
 
 \newenvironment{dedicatory}
-{
+{%
   \btypeout{Dedicatory}
   \thispagestyle{empty}
   \null\vfil
   \vskip 60\p@
   \begin{center}
     \Large \sl
-}
-{
+}{%
   \end{center}
   \vfil\null
   \cleardoublepage
-}
+}%
 
 
 
@@ -707,7 +696,7 @@
 %	DEDICATORY PAGE DESIGN
 %---------------------------------------------------------------------------------
 
-\newcommand\declaration[1]{
+\newcommand\declaration[1]{%
   \btypeout{Declaration of Authorship}
   \addtotoc{Declaration of Authorship}
   \thispagestyle{plain}
@@ -718,7 +707,7 @@
   {\normalsize #1}
   \vfil\vfil\null
   %\cleardoublepage
-}
+}%
 
 
 

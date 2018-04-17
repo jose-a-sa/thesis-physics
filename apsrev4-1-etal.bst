@@ -1570,7 +1570,7 @@ FUNCTION {format.names}
             #4 +    %%%INFO: max. of authors shown when "et al." is enforced
             #1 + =
             numnames #0
-            #7 +    %%%INFO: max. of authors shown (without enforcing et al.)
+            #5 +    %%%INFO: max. of authors shown (without enforcing et al.)
             > and
               { "others" 't :=
                 #1 'namesleft := }
@@ -1588,7 +1588,8 @@ FUNCTION {format.names}
                 if$
                 t "others" =
                   {
-                    " " *
+                    "" *
+                    names.punctuate
                     bbl.etal
                     emphasize
                     *
