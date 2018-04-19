@@ -293,10 +293,9 @@
   \fancyhead[RE]{\textsc{\@smalltitle}}
   \hypersetup{pdftitle={#2}}
 }%
-\newcommand*{\degree}[3][]{%
-  \ifstrempty{#1}{}{\def\@degreeother{#1}}
-  \def\@abbrevdegree{#2}
-  \def\@degree{#3}
+\newcommand*{\degree}[2]{%
+  \def\@degreeother{#2}
+  \def\@degree{#1}
 }%
 \newcommand*{\examiner}[2][]{\def\@examiner{\texorpdfstring{\href{#1}{#2}}{#2}}}
 \renewcommand*{\author}[2][]{%
@@ -363,7 +362,7 @@
     \begin{center}%
       \textsc{\LARGE\@university}%
       \\[15mm]
-      \textsc{\Large\ifdefined\@degreeother\@degreeother\else\@degree\fi\space Thesis}%
+      \textsc{\Large\@degreeother\space Thesis}%
       \\[2mm]
       
       \HRule\\[4mm]% Horizontal line
@@ -403,11 +402,11 @@
       {\large \today}\\% Date
       \vfill\vfill
       \ifdefined\@logos
-        \hspace*{\fill}
         \foreach\lg in \@logos{%
+          \hspace*{\fill}
           \includegraphics[height=\@logoheight]{\lg}% University/department logo
-          \hspace*{\fill}%
         }%
+        \hspace*{\fill}
       \fi
     \end{center}%
   \end{titlepage}%
