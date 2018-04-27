@@ -6,7 +6,7 @@
 %	PACKAGES AND OTHER DOCUMENT CONFIGURATIONS
 %-----------------------------------------------------------------------------------
 
-\documentclass[10pt, twoside]{Thesis}
+\documentclass[11pt, twoside]{Thesis}
 % The default font size and two-sided printing 
 % For a one-sided printing change the flag "twoside" to "oneside" 
 
@@ -32,12 +32,11 @@
 % FONTS & SPECIAL CHARACTERS
 %-----------------------------------------------------------------------------------
 
-% \usepackage{mathpazo}% default 
-\usepackage[notextcomp]{stix}% Times font like package with math support 
+\usepackage{mathpazo}% default 
+% \usepackage[notextcomp]{stix}% Times font like package with math support 
 % \usepackage{fourier}
 % \usepackage{palatino}% ( mathpazo on text + Computer Modern on math )
 % \usepackage{newpxtext,newpxmath}
-
 
 
 %-----------------------------------------------------------------------------------
@@ -71,7 +70,9 @@
 \newcommand{\dd}{\mathrm{d}}
 \newcommand{\fractd}[2][]{\frac{\dd #1}{\dd #2}}
 \newcommand{\fracpd}[2][]{\frac{\partial #1}{\partial #2}}
-
+\newcommand{\uu}[3][]{\,{}_{#1} #2_{#3}}
+\renewcommand{\Re}{\mathrm{Re}}
+\renewcommand{\Im}{\mathrm{Im}}
 
 
 %-----------------------------------------------------------------------------------

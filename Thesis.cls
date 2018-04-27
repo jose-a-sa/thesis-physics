@@ -131,7 +131,7 @@
 \interfootnotelinepenalty=9999    % Almost never break footnotes.
 
 
-\setstretch{1.4}
+\setstretch{1.35}
 \setlength\parindent{0pt}
 \setlength\parskip{5pt plus 1pt minus 1pt}
 
