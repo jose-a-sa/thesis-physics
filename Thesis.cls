@@ -51,9 +51,7 @@
 % Needed to configurate the line spacing
 \RequirePackage{setspace}
 % Extra math symbols and commands
-\RequirePackage{amsmath,amsfonts,amssymb,amscd,amsbsy,amsthm,mathtools,textcomp}
-% More math symbols and commands
-\RequirePackage{mathtools,textcomp,stackrel}
+\RequirePackage{amsmath,amsfonts,amssymb,amscd,amsbsy,amsthm,mathtools,textcomp,stackrel}
 % Command for better spaces and arrows
 \RequirePackage{xspace}
 % Needed to configure captions

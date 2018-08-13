@@ -36,7 +36,7 @@
 % \usepackage[notextcomp]{stix}% Times font like package with math support 
 % \usepackage{fourier}
 % \usepackage{palatino}% ( mathpazo on text + Computer Modern on math )
-% \usepackage{newpxtext,newpxmath}
+%\usepackage{newpxtext,newpxmath}
 
 
 %-----------------------------------------------------------------------------------
@@ -118,7 +118,7 @@
 %	ABSTRACT PAGE (PORTUGUESE)
 %-----------------------------------------------------------------------------------
 
-\begin{abstract}[title={Resumo},degree={Mestre de Ciência},nameconnector={por}]
+\begin{abstract}[title={Resumo},thesistitle={Test},degree={Mestre de Ciência},nameconnector={por}]
 	Tradução em português do ``Abstract'' escrito em inglês mais a cima. A página é centrada vertical  e horizontalmente, podendo espandir para o espaço superior da página em branco \ldots
 \end{abstract}
 
@@ -207,7 +207,7 @@
 
 
 %%% PART I %%%
-\part{First project}
+%\part{First project}
 
 \input{Chapters/Chapter1}
 % \input{Folder/Filename}
@@ -219,7 +219,7 @@
 
 
 %%% PART II %%%
-\part{Second project}
+%\part{Second project}
 
 \input{Chapters/Chapter2}
 % \input{Folder/Filename}
@@ -232,7 +232,7 @@
 
 % Another approach to appendices, all appendices as chapters the final thesis part
 %%% APPENDICES %%%
-\appendixpage
+%\appendixpage
 \appendix
 
 \input{Appendices/AppendixA}
@@ -248,7 +248,7 @@
 
 % \addvspacetoc{5mm} % Add a gap in the Contents, for aesthetics
 
-\configbibliography[part]{Bibliography}
+\configbibliography[chapter]{Bibliography}
 % \configbibliography[chapter|part]{<name of bib header>} 
 
 \nocite{*}
