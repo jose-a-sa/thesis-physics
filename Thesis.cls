@@ -637,12 +637,13 @@
 %	ACKNOWLEDGEMENTS PAGE DESIGN
 %---------------------------------------------------------------------------------
 
+\newcommand\acknowledgementsname{Acknowledgements}
 \newenvironment{acknowledgements}
 {%
-  \btypeout{Acknowledgements}
-  \addtotoc{Acknowledgements}
+  \btypeout{\acknowledgementsname}
+  \addtotoc{\acknowledgementsname}
   \pagestyle{empty}
-  \begin{center}{\huge{\textit{Acknowledgements}}\par}\end{center}
+  \begin{center}{\huge{\textit{\acknowledgementsname}}\par}\end{center}
   \vspace{3mm}
   \normalsize\normalfont
 }{%
