@@ -621,17 +621,21 @@
 %	QUOTATION PAGE DESIGN
 %---------------------------------------------------------------------------------
 
-\newcommand\quotepage[2]{%
+\newenvironment{quotepage}
+{%
   \btypeout{Quote page}
   \thispagestyle{empty} % Remove page number
-  \null\vfill % Add some space to move the quote down the page a bit
-  \textit{``#2"}
-  \begin{flushright}#1\end{flushright}
-  \vfill\vfill\vfill\vfill\vfill\vfill\null % Add some space at the bottom to position the quote just right
+}{%
+  \vfill\vfill\vfill\vfill\vfill\null % Add some space at the bottom to position the quote just right
   \cleardoublepage % Start a new page
 }%
 
-
+\newcommand\quoteentry[2]{%
+  \null\vfill
+  \textit{``#2"}
+  \begin{flushright}#1\end{flushright}
+  \vfill\null
+}%
 
 %---------------------------------------------------------------------------------
 %	ACKNOWLEDGEMENTS PAGE DESIGN
