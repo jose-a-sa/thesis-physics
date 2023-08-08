@@ -51,7 +51,16 @@
 % Needed to configurate the line spacing
 \RequirePackage{setspace}
 % Extra math symbols and commands
-\RequirePackage{amsmath,amsfonts,amssymb,amscd,amsbsy,amsthm,mathtools,textcomp,stackrel}
+\RequirePackage{amsmath,amsfonts,amssymb,amscd,amsbsy,amsthm}
+% More math symbols and commands
+\RequirePackage{stmaryrd}
+\SetSymbolFont{stmry}{bold}{U}{stmry}{m}{n}
+% Stacking math and other
+\RequirePackage{mathtools,textcomp,stackrel,stackengine}
+% Override other math symbols
+\RequirePackage[bbgreekl]{mathbbol}
+\DeclareSymbolFontAlphabet{\mathbb}{AMSb}
+\DeclareSymbolFontAlphabet{\mathbbl}{bbold}
 % Command for better spaces and arrows
 \RequirePackage{xspace}
 % Needed to configure captions
@@ -80,6 +89,32 @@
 \usepackage[titles]{tocloft}
 
 
+
+%--------------------------------------------------------------------------------
+%	SYMBOLS
+%--------------------------------------------------------------------------------
+
+\usepackage{xparse}
+
+\ExplSyntaxOn
+\NewDocumentCommand{\shortenmathcapital}{m}{
+	\prop_set_from_keyval:Nn \l_tmpa_prop{#1}
+	\int_step_inline:nnn{`A}{`Z}{
+		\prop_map_inline:Nn \l_tmpa_prop{
+			\cs_new_protected:cpx { 
+				####1 \char_generate:nn{##1}{11}
+			}{
+				\exp_not:N ####2{ \char_generate:nn{##1}{11} }
+			}
+		}
+	}
+}
+\ExplSyntaxOff
+
+\shortenmathcapital{bb=\mathbb,cal=\mathcal,bbl=\mathbbl}
+
+
+
 %---------------------------------------------------------------------------------
 %	CONFIGURE TODAY
 %---------------------------------------------------------------------------------
@@ -96,21 +131,18 @@
 %	HYPERLINKS & REFERENCES
 %---------------------------------------------------------------------------------
 
-\hypersetup{pdfpagemode={UseOutlines},bookmarks=true,bookmarksopen=true,
+\hypersetup{pdfpagemode={UseOutlines},bookmarksopen=true,
    bookmarksopenlevel=0,bookmarksnumbered=true,hypertexnames=false,
    colorlinks,citecolor=green,urlcolor=blue,linkcolor=red,
    pdfstartview={FitV},unicode,breaklinks=true}
-
 \pdfstringdefDisableCommands{\let\\\space}
-
-
 
 %---------------------------------------------------------------------------------
 %	MARGINS & GEOMETRY & PARAGRAPHS
 %---------------------------------------------------------------------------------
 
 \geometry{a4paper,
-  bindingoffset=8mm,
+  bindingoffset=10mm,
 	top=27mm,
 	outer=23mm,
 	inner=23mm,
@@ -118,6 +150,27 @@
   footskip=10mm,
   footnotesep=5mm plus 1mm minus 1mm
 }
+
+% \geometry{a4paper,
+% %Header spacing included in top margin, so top must be at least 15mm
+%   includehead,
+%   top=15mm,
+%   headheight=1.3em,
+% %Footer spacing not included, so (bottom - footskip) must be at least 15mm
+% %  If no footers are used, then bottom could be set to 15mm if wished
+%   bottom=23mm,
+%   footskip=8mm,
+% %Spacing between text baseline and rule before footnote
+%   footnotesep=5mm,
+% %(Inner + bindingoffset) should be at least 40mm
+% %outer should be at least 15mm
+%   inner=30mm,
+%   outer=20mm,
+%   bindingoffset=10mm,
+% %Marginpar not included in spacing, so nothing should be included in the
+% %  margins in the final copy
+%   marginparwidth=25mm,
+%   reversemarginpar}
 
 
 \raggedbottom
@@ -144,7 +197,8 @@
 \fancyhead[LE,RO]{\thepage}
 \fancyfoot{}
 
-
+\setlength{\headheight}{13.6pt}
+\addtolength{\topmargin}{-1.6pt}
 
 %---------------------------------------------------------------------------------
 %	UTILITIES
@@ -313,9 +367,9 @@
   \def\@keywords{#1}
   \hypersetup{pdfkeywords={#1}}
 }%
-\newcommand*{\logos}[2][30mm]{%
+\newcommand*{\logo}[2][50mm]{%
   \setlength\@logoheight{#1}
-  \def\@logos{#2}
+  \def\@logo{#2}
 }%
 
 
@@ -357,55 +411,56 @@
   \thispagestyle{empty}%
   \begin{titlepage}%
     \topskip=0pt
+    \vspace*{10mm}
     \begin{center}%
-      \textsc{\LARGE\@university}%
-      \\[15mm]
-      \textsc{\Large\@degreeother\space Thesis}%
-      \\[2mm]
+      % \textsc{\LARGE\@university}%
+      % \\[15mm]
+      % \textsc{\Large\@degreeother\space Thesis}%
+      % \\[2mm]
       
-      \HRule\\[4mm]% Horizontal line
-      \begin{minipage}{0.90\textwidth}%
-        \setstretch{1.1}\centering\huge\bfseries\@thesistitle
+      \HRule\\[7mm]% Horizontal line
+      \begin{minipage}{0.95\textwidth}%
+        \setstretch{1.15}\centering\huge\bfseries\@thesistitle
       \end{minipage}% Thesis title
-      \\[5.5mm]
+      \\[7mm]
       \HRule\\[8mm]% Horizontal line
       
-      \begin{minipage}[t]{0.4\textwidth}%
-        \begin{flushleft}%
-          \large\emph{Author:}\\\@author
-        \end{flushleft}%
+      % \begin{minipage}[t]{0.4\textwidth}%
+      %   \begin{flushleft}%
+      %     \large\emph{Author:}\\\@author
+      %   \end{flushleft}%
+      % \end{minipage}%
+      % \begin{minipage}[t]{0.4\textwidth}%
+      %   \begin{flushright}%
+      %     \large\emph{Supervisor:}\\%
+      %     \@supervisor
+      %     \ifdefined\@cosupervisor 
+      %       \\[4mm]%
+      %       \emph{Co-supervisor:}\\%
+      %       \@cosupervisor
+      %     \fi
+      %   \end{flushright}%
+      % \end{minipage}%
+      \vspace*{8mm}
+      \begin{minipage}[t]{\textwidth}%
+        \centering\Large\@author
       \end{minipage}%
-      \begin{minipage}[t]{0.4\textwidth}%
-        \begin{flushright}%
-          \large\emph{Supervisor:}\\%
-          \@supervisor
-          \ifdefined\@cosupervisor 
-            \\[4mm]%
-            \emph{Co-supervisor:}\\%
-            \@cosupervisor
-          \fi
-        \end{flushright}%
-      \end{minipage}%
-      \\[15mm]
+      \\[20mm]
       
       \large\textit{A thesis submitted in fulfilment of the requirements\linebreak%
       for the degree of \@degree}%
-      \\[2mm]
-      \textit{at the}%
-      \\[3mm]
+      \\[4mm]
+      \textit{at}%
+      \\[10mm]%
+      \ifdefined\@logo%
+        \includegraphics[height=\@logoheight]{\@logo}\\[8mm]% University/department logo
+      \fi
       \ifdefined\@faculty\@faculty\\\fi
       \ifdefined\@department\@department\\\fi
       \ifdefined\@group\@group\\\fi
       \bigskip\bigskip
-      {\large \today}\\% Date
+      {\large \the\year{}}\\% Date
       \vfill\vfill
-      \ifdefined\@logos
-        \foreach\lg in \@logos{%
-          \hspace*{\fill}
-          \includegraphics[height=\@logoheight]{\lg}% University/department logo
-        }%
-        \hspace*{\fill}
-      \fi
     \end{center}%
   \end{titlepage}%
   \cleardoublepage
